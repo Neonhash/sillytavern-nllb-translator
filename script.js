@@ -4,7 +4,7 @@
 // @version      0.1
 // @description  SillyTavern plugin: use local NLLB translator
 // @author       Anton
-// @match        *://localhost:8000/*
+// @match        *://localhost:8001/*
 // @match        *://localhost:5007/*
 // @grant        none
 // ==/UserScript==
