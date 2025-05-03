@@ -5,50 +5,47 @@
 // @description  SillyTavern plugin: use local NLLB translator
 // @author       Anton
 // @match        http://127.0.0.1:8000/*
-// @match        http://localhost:8000/*
 // @grant        none
 // ==/UserScript==
 
 (function () {
-  console.log("[NLLB Translator] Script aktiv");
+    console.log("[NLLB Translator] Script aktiv");
 
-  'use strict';
+    function waitForST(callback) {
+        const check = () => {
+            if (typeof window.ExtensionPlugin !== "undefined" &&
+                typeof window.ExtensionPlugin.addTranslator === "function") {
+                callback();
+            } else {
+                console.log("[NLLB Translator] warte auf ExtensionPlugin...");
+                setTimeout(check, 1000);
+            }
+        };
+        check();
+    }
 
-  // Warte auf SillyTavern Plugin-System
-  function waitForST(callback) {
-    const check = () => {
-      if (typeof window.ExtensionPlugin !== 'undefined' &&
-          typeof window.ExtensionPlugin.addTranslator === 'function') {
-        callback();
-      } else {
-        setTimeout(check, 1000);
-      }
-    };
-    check();
-  }
-
-  waitForST(() => {
-    window.ExtensionPlugin.addTranslator({
-      id: 'nllb-local',
-      label: 'NLLB Local',
-      type: 'custom',
-      async translate(text, lang) {
-        try {
-          const response = await fetch('http://127.0.0.1:5007/translate', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ text })
-          });
-
-          const data = await response.json();
-          return data.translated;
-        } catch (error) {
-          console.error('[NLLB Translation error]:', error);
-          return '[Translation error]';
-        }
-      }
+    waitForST(() => {
+        console.log("[NLLB Translator] registriere Plugin...");
+        window.ExtensionPlugin.addTranslator({
+            id: "nllb-local",
+            label: "NLLB Local",
+            type: "custom",
+            async translate(text, lang) {
+                try {
+                    const response = await fetch('http://127.0.0.1:5007/translate', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ text })
+                    });
+                    const data = await response.json();
+                    return data.translated;
+                } catch (error) {
+                    console.error("[NLLB Translator] Fehler bei Übersetzung:", error);
+                    return "[Translation error]";
+                }
+            }
+        });
     });
-  });
 })();
