@@ -9,44 +9,30 @@
 // @grant        none
 // ==/UserScript==
 
-(function () {
-    console.log("[NLLB Translator] Script aktiv");
+module.exports = {
 
-    function waitForST(callback) {
-        const check = () => {
-            if (typeof window.ExtensionPlugin !== "undefined" &&
-                typeof window.ExtensionPlugin.addTranslator === "function") {
-                callback();
-            } else {
-                console.log("[NLLB Translator] warte auf ExtensionPlugin...");
-                setTimeout(check, 1000);
-            }
-        };
-        check();
-    }
+  info: {
+    id: 'nllb-translator',
+    name: 'NLLB Local Translator',
+    description: 'Lokaler Übersetzer über NLLB API auf Port 5007',
+  },
 
-    waitForST(() => {
-        console.log("[NLLB Translator] registriere Plugin...");
-        window.ExtensionPlugin.addTranslator({
-            id: "nllb-local",
-            label: "NLLB Local",
-            type: "custom",
-            async translate(text, lang) {
-                try {
-                    const response = await fetch('http://127.0.0.1:5007/translate', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ text })
-                    });
-                    const data = await response.json();
-                    return data.translated;
-                } catch (error) {
-                    console.error("[NLLB Translator] Fehler bei Übersetzung:", error);
-                    return "[Translation error]";
-                }
-            }
+
+  init: async (router) => {
+    router.post('/translate', async (req, res) => {
+      try {
+        const response = await fetch('http://127.0.0.1:5007/translate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: req.body.text })
         });
+        const data = await response.json();
+        res.json(data);
+      } catch (error) {
+        console.error('[NLLB Plugin] Fehler:', error);
+        res.status(500).json({ error: 'Übersetzungsfehler' });
+      }
     });
-})();
+  },
+};
+
