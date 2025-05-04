@@ -1,14 +1,3 @@
-// ==UserScript==
-// @name         NLLB Local Translator
-// @namespace    http://tampermonkey.net/
-// @version      0.1
-// @description  SillyTavern plugin: use local NLLB translator
-// @author       Anton
-// @match        *://localhost:8000/*
-// @match        *://localhost:5007/*
-// @grant        none
-// ==/UserScript==
-
 module.exports = {
 
   info: {
