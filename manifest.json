@@ -4,6 +4,6 @@
   "description": "Use local NLLB model via localhost for translation.",
   "entry": "script.js",
   "author": "Anton",
-  "type": "translator",
-  "pluginType": "translator"
+  "type": "custom",
+  "pluginType": "custom"
 }
