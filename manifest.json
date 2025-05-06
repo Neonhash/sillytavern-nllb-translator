@@ -4,6 +4,6 @@
   "version": "1.0.0",
   "description": "Lokaler Übersetzer über NLLB API auf Port 5007",
   "author": "Anton & Kim",
-  "entry": "script.js",  // oder "index.js", je nachdem wie du es benannt hast
+  "entry": "script.js",  
   "api": true
 }
