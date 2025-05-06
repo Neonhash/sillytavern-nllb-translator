@@ -1,9 +1,9 @@
 {
+  "id": "nllb-translator",
   "name": "NLLB Local Translator",
-  "version": "1.0",
-  "description": "Use local NLLB model via localhost for translation.",
-  "entry": "script.js",
-  "author": "Anton",
-  "type": "custom",
-  "pluginType": "custom"
+  "version": "1.0.0",
+  "description": "Lokaler Übersetzer über NLLB API auf Port 5007",
+  "author": "Anton & Kim",
+  "entry": "script.js",  // oder "index.js", je nachdem wie du es benannt hast
+  "api": true
 }
