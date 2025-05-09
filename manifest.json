@@ -1,9 +1,9 @@
 {
-  "id": "nllb-translator",
+  "id": "nllb-local",
   "name": "NLLB Local Translator",
   "version": "1.0.0",
-  "description": "Lokaler Übersetzer über NLLB API auf Port 5007",
-  "author": "Anton & Kim",
-  "entry": "script.js",  
-  "api": true
+  "pluginType": "translator",
+  "type": "server",
+  "main": "index.js",
+  "endpoint": "http://127.0.0.1:5007/"
 }
