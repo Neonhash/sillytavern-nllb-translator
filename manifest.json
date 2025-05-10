@@ -1,0 +1,7 @@
+{
+  "id": "nllb-local",
+  "name": "NLLB Local Translator",
+  "pluginType": "translator",
+  "type": "server",
+  "endpoint": "http://127.0.0.1:5007/"
+}
